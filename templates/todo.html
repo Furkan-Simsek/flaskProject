@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div style = "margin-top: 100px;" class = "container" >
+  <h3>Todo List</h3>
+  <hr>
+
+  <form action="/add" method = "post">
+      <div class="form-group">
+              <label for="formGroupExampleInput">Add Todo</label>
+              <input type="text" class="form-control" name = "title" id="formGroupExampleInput" placeholder="Enter Todo..."><br>
+              <button type = "submit" class="btn btn-danger">Add</button>
+      </div>
+      <hr>
+
+
+  </form>
+  {% if todos == [] %}
+  <div class="alert alert-warning" role="alert">
+          You Dont Have a Todo
+  </div>
+  {% else %}
+  <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">Todo Title</th>
+              <th scope="col">Todo Status</th>
+              <th scope="col">Update Status</th>
+              <th scope="col">Delete Todo</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for todo in todos %}
+            <tr>
+                  <th scope="row">{{todo.id}}</th>
+                  <td>{{todo.title}}</td>
+                  {% if todo.complete == False %}
+                  <td>Todo is not compeleted</td>
+                  {% else %}
+                  <td>Todo is compeleted</td>
+                  {% endif %}
+                  
+                  <td><a href="/complete/{{todo.id}}" class ="btn btn-danger">Ok</a></td>
+                  <td><a href="/delete/{{todo.id}}" class ="btn btn-danger">Delete</a></td>
+
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+  {% endif %}
+  
+</div>
+{% endblock body %}
